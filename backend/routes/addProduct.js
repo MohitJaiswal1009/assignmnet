@@ -1,20 +1,14 @@
-// routes/addProduct.js
 import express from 'express';
 import { Product } from '../schema.js';
 import nodeCache from '../cache.js';
+import validateProductFields from '../middleware/validateProductFields.js';
 
 const router = express.Router();
 
-router.post('/', async (req, res) => {
+// Apply the validateProductFields middleware to the POST route
+router.post('/', validateProductFields, async (req, res) => {
     try {
         const { name, photo, price, stock, category } = req.body;
-
-        if (!name || !photo || !price || !stock || !category) {
-            return res.status(400).json({ 
-                success: false,
-                error: 'All fields are required' 
-            });
-        }
 
         const newProduct = new Product({
             name,
@@ -45,4 +39,3 @@ router.post('/', async (req, res) => {
 });
 
 export default router;
-
