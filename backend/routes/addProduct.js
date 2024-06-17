@@ -6,7 +6,7 @@ import validateProductFields from '../middleware/validateProductFields.js';
 const router = express.Router();
 
 // Apply the validateProductFields middleware to the POST route
-router.post('/', validateProductFields, async (req, res) => {
+router.post('/',validateProductFields, async (req, res) => {
     try {
         const { name, photo, price, stock, category } = req.body;
 
